@@ -28,4 +28,9 @@ public interface JwtMeta extends Serializable{
      * 用户类型
      */
     String USER_TYPE = "userType";
+
+    /**
+     * 有效时间
+     */
+    String PERIOD = "period";
 }
