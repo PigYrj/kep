@@ -15,7 +15,7 @@ public class PKITest {
 
     @Test
     public void priviateKey_Test() throws Exception{
-        File file = new File("D:\\project\\190313\\1\\kep\\src\\main\\java\\com\\pigyrj\\kep\\server\\auth\\pki\\pfx\\test2048.pfx");
+        File file = new File("");
         KeyStore keyStore = PKIUtils.getKeyStore(FileCopyUtils.copyToByteArray(file),"123123");
         System.out.println("keystore type=" + keyStore.getType());
 
