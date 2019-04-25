@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pigyrj.kep.server.dao.mapper.DictNodeMapper">
+    <resultMap id="BaseResultMap" type="com.pigyrj.kep.server.dao.entity.DictNodeEntity">
+        <id column="ID" property="id" jdbcType="INTEGER"/>
+        <result column="CODE" property="code" jdbcType="VARCHAR"/>
+        <result column="VALUE" property="value" jdbcType="VARCHAR"/>
+        <result column="NAME" property="name" jdbcType="VARCHAR"/>
+        <result column="GROUP_ID" property="groupId" jdbcType="VARCHAR"/>
+        <result column="LABLE" property="lable" jdbcType="VARCHAR"/>
+        <result column="PARENT_CODE" property="parentCode" jdbcType="VARCHAR"/>
+        <result column="LEVEL" property="level" jdbcType="VARCHAR"/>
+        <result column="ENABLE" property="enable" jdbcType="VARCHAR"/>
+        <result column="NOTE" property="note" jdbcType="LONGVARCHAR"/>
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+    ID, CODE, VALUE, NAME, GROUP_ID, LABLE, PARENT_CODE, LEVEL, ENABLE,NOTE
+    </sql>
+
+    <select id="queryList" resultMap="ResultMapWithBLOBs" parameterType="com.pigyrj.kep.server.dao.entity.DictNodeEntityExample">
+        select
+        <include refid="Base_Column_List" />
+        FROM T_SCF_DICT WHERE ENABLE = '1'
+    </select>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+    delete from T_SCF_DICT
+    where ID = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="create" parameterType="com.pigyrj.kep.server.dao.entity.DictNodeEntity" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into T_SCF_DICT
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="code != null">
+                CODE,
+            </if>
+            <if test="value != null">
+                VALUE,
+            </if>
+            <if test="name != null">
+                NAME,
+            </if>
+            <if test="groupId != null">
+                GROUP_ID,
+            </if>
+            <if test="lable != null">
+                LABLE,
+            </if>
+            <if test="parentCode != null">
+                PARENT_CODE,
+            </if>
+            <if test="level != null">
+                LEVEL,
+            </if>
+            <if test="enable != null">
+                ENABLE,
+            </if>
+            <if test="note != null">
+                NOTE,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="code != null">
+                #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="value != null">
+                #{value,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="groupId != null">
+                #{groupId,jdbcType=VARCHAR},
+            </if>
+            <if test="lable != null">
+                #{lable,jdbcType=VARCHAR},
+            </if>
+            <if test="parentCode != null">
+                #{parentCode,jdbcType=VARCHAR},
+            </if>
+            <if test="level != null">
+                #{level,jdbcType=VARCHAR},
+            </if>
+            <if test="enable != null">
+                #{enable,jdbcType=VARCHAR},
+            </if>
+            <if test="note != null">
+                #{note,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByExampleSelective" parameterType="map">
+        update T_SCF_DICT
+        <set>
+            <if test="record.id != null">
+                ID = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test="record.code != null">
+                CODE = #{record.code,jdbcType=VARCHAR},
+            </if>
+            <if test="record.value != null">
+                VALUE = #{record.value,jdbcType=VARCHAR},
+            </if>
+            <if test="record.name != null">
+                NAME = #{record.name,jdbcType=VARCHAR},
+            </if>
+            <if test="record.groupId != null">
+                GROUP_ID = #{record.groupId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.lable != null">
+                LABLE = #{record.lable,jdbcType=VARCHAR},
+            </if>
+            <if test="record.parentCode != null">
+                PARENT_CODE = #{record.parentCode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.level != null">
+                LEVEL = #{record.level,jdbcType=VARCHAR},
+            </if>
+            <if test="record.enable != null">
+                ENABLE = #{record.enable,jdbcType=VARCHAR},
+            </if>
+            <if test="record.note != null">
+                NOTE = #{record.note,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.pigyrj.kep.server.dao.entity.DictNodeEntity">
+        update T_SCF_DICT
+        <set>
+            <if test="code != null">
+                CODE = #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="value != null">
+                VALUE = #{value,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                NAME = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="groupId != null">
+                GROUP_ID = #{groupId,jdbcType=VARCHAR},
+            </if>
+            <if test="lable != null">
+                LABLE = #{lable,jdbcType=VARCHAR},
+            </if>
+            <if test="parentCode != null">
+                PARENT_CODE = #{parentCode,jdbcType=VARCHAR},
+            </if>
+            <if test="level != null">
+                LEVEL = #{level,jdbcType=VARCHAR},
+            </if>
+            <if test="enable != null">
+                ENABLE = #{enable,jdbcType=VARCHAR},
+            </if>
+            <if test="note != null">
+                NOTE = #{note,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

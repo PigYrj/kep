@@ -1,4 +1,4 @@
-package com.pigyrj.kep.server.dao;
+package com.pigyrj.kep.server.dao.entity;
 
 /**
  * @author YRJ
