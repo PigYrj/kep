@@ -1,2 +1,30 @@
 server:
-  port: 10801
+  port: 11130
+
+spring:
+  application:
+    name: biz-scf
+  profiles:
+    active: auto
+    
+#  cloud:
+#      config:
+#        fail-fast: true
+#        discovery:
+#          service-id: config-server-name
+#          enabled: true
+#        profile: ${spring.profiles.active}
+#        label: ${spring.profiles.active}
+
+---
+#spring:
+#  profiles: auto
+#eureka:
+#  instance:
+#    prefer-ip-address: true
+#    instance-id: ${spring.cloud.client.ipAddress}:${random.int[100000,199999]}
+#  client:
+#    registerWithEureka: true
+#    fetchRegistry: true
+#    serviceUrl:
+#      defaultZone: http://172.16.3.239:8761/eureka/

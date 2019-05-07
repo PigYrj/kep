@@ -1,0 +1,131 @@
+server:
+  port: 11130
+
+spring:
+  application:
+    name: biz-scf
+  profiles:
+    active: auto
+
+#  jackson:
+#      date-format: yyyy-MM-dd HH:mm:ss # jackson默认的时间转换格式
+#      time-zone: GMT+8 # jackson默认的时区
+#      default-property-inclusion: non_null # 属性为NULL，不序列化
+#    http:
+#        multipart:
+#            max-request-size: 20MB
+#            max-file-size: 5MB
+#    redis:
+#        database: 0
+#        password: unitid123456
+
+  datasource: # 数据库配置
+      name: auth # 指定数据源名
+      url: jdbc:mysql://101.132.165.73:3306/auth?useUnicode=true&characterEncoding=UTF8
+      username: root
+      password: root
+      # 使用druid数据源
+      type: com.alibaba.druid.pool.DruidDataSource # 指定数据源所属的Java类名
+      driver-class-name: com.mysql.cj.jdbc.Driver # 数据库驱动
+      filters: stat # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+      maxActive: 200 # 最大连接数据库连接数，设置为0时，表示没有限制；
+      initialSize: 10 # 指定启动连接池时,初始建立的连接数量
+      maxWait: 60000 # 配置获取连接等待超时的时间，单位是毫秒
+      minIdle: 10 # 最小空闲值.当空闲的连接数少于阀值时，连接池就会预申请去一些连接，以免洪峰来时来不及申请
+      timeBetweenEvictionRunsMillis: 60000 # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      minEvictableIdleTimeMillis: 300000 # 配置一个连接在池中最小生存的时间，单位是毫秒
+      validationQuery: select 'x' # 校验SQL，Oracle配置 spring.datasource.validationQuery=SELECT 1 FROM DUAL，如果不配validationQuery项，则下面三项配置无用
+      testWhileIdle: true # 指明连接是否被空闲连接回收器(如果有)进行检验.如果检测失败,则连接将被从池中去除.
+      testOnBorrow: true # testOnBorrow和testOnReturn在生产环境一般是不开启的，主要是性能考虑。失效连接主要通过testWhileIdle保证，如果获取到了不可用的数据库连接，一般由应用处理异常。
+      testOnReturn: true # testOnBorrow和testOnReturn在生产环境一般是不开启的，主要是性能考虑。失效连接主要通过testWhileIdle保证，如果获取到了不可用的数据库连接，一般由应用处理异常。
+      poolPreparedStatements: true # 打开PSCache
+      maxOpenPreparedStatements: 20 # statement池能够同时分配的打开的statements的最大数量,如果设置为0表示不限制
+#    rabbitmq:
+#        host: ${RABBIT_MQ_HOST:172.16.3.237}
+#        port: ${RABBIT_MQ_PORT:5672}
+#        username: guest
+#        password: guest
+#    zipkin:
+#        enabled: true # 启用zipkin监控微服务集群中调用链路情况
+#    sleuth:
+#        sampler:
+#            percentage: 1 # 这个参数来决定了日志记录发送给采集器的概率，0-1的配置。开发阶段和运行初期，一般配置成1全量收集日志，到了上线后可以慢慢降低这一概率。
+#    cloud:
+#      sentinel:
+#        transport:
+#          # 监控台端点
+#          dashboard: 172.16.3.239:9528
+#          # 流控开放端口
+#          port: 20501
+
+mybatis:
+    # MapperScannerConfigurer将扫描basePackage所指定的包下的所有接口类（包括子类），如果它们在SQL映射文件中定义过，则将它们动态定义为一个Spring Bean。多路径配置通过英文逗号”,”分隔开不同路径即可。
+    basepackage: com.pigyrj.kep.server.dao.mapper.*
+    mapper-locations: classpath*:mapper/**/*.xml # mapper的xml文件位置
+
+#feign:
+#  httpclient:
+#    enabled: false # 关闭feign的ApacheHttpClient
+#  okhttp:
+#    enabled: true # 启用OkHttpClient
+#  hystrix:
+#    enabled: true # 启用熔断
+#  client:
+#    config:
+#      default:
+#        connectTimeout: 5000 # 设置连接超时时间
+#        readTimeout: 30000 # 设置读取超时时间
+#        loggerLevel: basic
+
+#ribbon:
+#  eureka:
+#    enabled: true
+#  ReadTimeout: 60000
+#  ConnectTimeout: 60000
+#  MaxAutoRetries: 0
+#  MaxAutoRetriesNextServer: 1
+#  OkToRetryOnAllOperations: false
+
+#hystrix:
+#  threadpool:
+#    default:
+#      coreSize: 1000 #并发执行的最大线程数，默认10
+#      maxQueueSize: 1000 #BlockingQueue的最大队列数
+#      queueSizeRejectionThreshold: 500 #即使maxQueueSize没有达到，达到queueSizeRejectionThreshold该值后，请求也会被拒绝
+#  command:
+#    default:
+#      execution:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 15000
+
+# 配置swagger
+swagger:
+  enabled: true
+  base-package: com.pigyrj.kep
+  title: SCF
+  version: 1.0.0.RELEASE
+  description: 脚手架文档
+  contact:
+    name: 於仁健-yrjfight@163.com
+  docket:
+      bizAdmin:
+        title: 管理侧Web端接口
+        description: 管理侧Web端接口
+        version: 1.0.0.RELEASE
+        termsOfServiceUrl: http://localhost:11130/swagger-ui.html
+        contact.name: 壹证通
+        contact.email: yrjfight@163.com
+        base-package: com.pigyrj.kep.server.controller.biz
+#        globalOperationParameters[0]:
+#          name: Authorization
+#          description: 鉴权信息
+#          modelRef: string
+#          parameterType: header
+#          defaultValue: kxj
+#          required: true
+
+
+management:
+  security:
+    enabled: false # 关闭SpringBoot Actuator的鉴权
